@@ -1,0 +1,37 @@
+{% extends 'employees/base.html' %}
+{% block title %}Список сотрудников{% endblock %}
+{% block content %}
+<h1>Сотрудники</h1>
+<a href="{% url 'employees:employee_create' %}" class="btn btn-primary mb-3">Добавить сотрудника</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Дата приёма</th>
+            <th>Зарплата</th>
+            <th>Email</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.full_name }}</td>
+            <td>{{ emp.position }}</td>
+            <td>{{ emp.hire_date }}</td>
+            <td>{{ emp.salary }}</td>
+            <td>{{ emp.email }}</td>
+            <td>
+                <a href="{% url 'employees:employee_update' emp.id %}" class="btn btn-sm btn-warning">Изменить</a>
+                <a href="{% url 'employees:employee_delete' emp.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">Нет сотрудников</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
